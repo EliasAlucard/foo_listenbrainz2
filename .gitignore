@@ -1,0 +1,15 @@
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore build files
+/src/Debug/
+/src/Debug FB2K/
+/src/Release/
+/src/Release FB2K/
+
+# Other files
+*~
