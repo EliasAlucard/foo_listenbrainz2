@@ -26,6 +26,15 @@ jobs:
           cp ${Env:CONFIGURATION}\foo_listenbrainz2\foo_listenbrainz2.dll ..\artifacts
         env:
           CONFIGURATION: ${{ matrix.configuration }}
+      - name: Copy licenses
+        run: |
+          $LicenseDir = "artifacts\licenses"
+          mkdir $LicenseDir
+          cp LICENSE.txt $LicenseDir\foo_listenbrainz2.txt
+          cp src\json-license.txt $LicenseDir\json.txt
+          cp foobar2000-SDK\foobar2000\sdk-license.txt $LicenseDir\foobar2000-sdk.txt
+          cp foobar2000-SDK\pfc\pfc-license.txt $LicenseDir\PFC.txt
+          cp foobar2000-SDK\wtl\MS-PL.txt $LicenseDir\WTL.txt
       - name: Archive production artifacts
         uses: actions/upload-artifact@v1
         with:
@@ -38,17 +47,26 @@ jobs:
     needs:
       - build
     steps:
+      - name: Set version
+        run: |
+          TAG=${GITHUB_REF##*/}
+          echo "::set-env name=VERSION::$(echo $TAG)"
       - uses: actions/download-artifact@v1
         with:
           name: foo_listenbrainz2-Release
-          path: artifacts/
+          path: artifacts/foo_listenbrainz2/
+      - name: Generate fb2k component package
+        run: |
+          mkdir artifacts/release/
+          cd artifacts/foo_listenbrainz2/
+          zip ../release/foo_listenbrainz2_$VERSION.fb2k-component *
       - name: Generate checksums
         run: |
-          cd artifacts
+          cd artifacts/release/
           sha256sum * > SHA256SUMS
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: artifacts/*
+          files: artifacts/release/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
