@@ -113,11 +113,42 @@ private:
 			}
 
 			json additional_info = json::object();
-			const char* recording_mbid = info.meta_get("MUSICBRAINZ_TRACKID", 0);
+			additional_info["listening_from"] = "foo_listenbrainz2 " COMPONENT_VERSION;
+
+			const char *release_mbid = info.meta_get("MUSICBRAINZ_ALBUMID", 0);
+			if (!is_uuid(release_mbid)) release_mbid = info.meta_get("MUSICBRAINZ ALBUM ID", 0);
+			if (is_uuid(release_mbid))
+			{
+				additional_info["release_mbid"] = release_mbid;
+			}
+
+			const char *release_group_mbid = info.meta_get("MUSICBRAINZ_RELEASEGROUPID", 0);
+			if (!is_uuid(release_group_mbid)) release_group_mbid = info.meta_get("MUSICBRAINZ RELEASE GROUP ID", 0);
+			if (is_uuid(release_group_mbid))
+			{
+				additional_info["release_group_mbid"] = release_group_mbid;
+			}
+
+			const char *recording_mbid = info.meta_get("MUSICBRAINZ_TRACKID", 0);
 			if (!is_uuid(recording_mbid)) recording_mbid = info.meta_get("MUSICBRAINZ TRACK ID", 0);
 			if (is_uuid(recording_mbid))
 			{
 				additional_info["recording_mbid"] = recording_mbid;
+			}
+
+			const char *track_mbid = info.meta_get("MUSICBRAINZ_RELEASETRACKID", 0);
+			if (!is_uuid(track_mbid)) track_mbid = info.meta_get("MUSICBRAINZ RELEASE TRACK ID", 0);
+			if (is_uuid(track_mbid))
+			{
+				additional_info["track_mbid"] = track_mbid;
+			}
+
+			const char *work_mbid = info.meta_get("MUSICBRAINZ_WORKID", 0);
+			if (!is_uuid(work_mbid)) work_mbid = info.meta_get("MUSICBRAINZ WORK ID", 0);
+			if (is_uuid(work_mbid))
+			{
+				additional_info["work_mbids"] = json::array();
+				additional_info["work_mbids"][0] = work_mbid;
 			}
 
 			const char* artist_mbid = info.meta_get("MUSICBRAINZ_ARTISTID", 0);
@@ -126,6 +157,18 @@ private:
 			{
 				additional_info["artist_mbids"] = json::array();
 				additional_info["artist_mbids"][0] = artist_mbid;
+			}
+
+			const char *track_number = info.meta_get("TRACKNUMBER", 0);
+			if (track_number != nullptr)
+			{
+				additional_info["tracknumber"] = track_number;
+			}
+
+			const char *isrc = info.meta_get("ISRC", 0);
+			if (isrc != nullptr)
+			{
+				additional_info["isrc"] = isrc;
 			}
 
 			track_metadata["additional_info"] = additional_info;

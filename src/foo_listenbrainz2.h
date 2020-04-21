@@ -2,7 +2,7 @@
 
 #define COMPONENT_TITLE "ListenBrainz 2"
 #define COMPONENT_DLL_NAME "foo_listenbrainz2.dll"
-#define COMPONENT_VERSION "1.0.0"
+#define COMPONENT_VERSION "1.2.0dev1"
 #define COMPONENT_INFO "Build: "  __TIME__ ", " __DATE__ "\n"
 
 static constexpr GUID g_guid_preferences = { 0x3c92ef3b, 0xd3d7, 0x43e0, { 0xa5, 0xe0, 0x7, 0xf8, 0x14, 0xa0, 0x55, 0xfb } };
