@@ -5,7 +5,7 @@
 `Windows 7` and [foobar2000](https://foobar2000.org) `v1.5`.
 
 ### Download
-[https://github.com/marc2k3/foo_listenbrainz2/releases](https://github.com/marc2k3/foo_listenbrainz2/releases)
+[https://github.com/EliasAlucard/foo_listenbrainz2/releases](https://github.com/EliasAlucard/foo_listenbrainz2/releases)
 
 ### Installation
 
