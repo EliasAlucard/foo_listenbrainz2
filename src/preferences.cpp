@@ -148,7 +148,7 @@ namespace lbz
 
 		bool get_help_url(pfc::string_base& out) override
 		{
-			out.set_string("https://github.com/marc2k3/foo_listenbrainz2");
+			out.set_string("https://github.com/EliasAlucard/foo_listenbrainz2");
 			return true;
 		}
 
